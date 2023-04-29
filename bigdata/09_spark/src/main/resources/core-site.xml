@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?xml-stylesheet type="text/xsl" href="configuration.xsl"?>
+<!--
+  Licensed under the Apache License, Version 2.0 (the "License");
+  you may not use this file except in compliance with the License.
+  You may obtain a copy of the License at
+
+    http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License. See accompanying LICENSE file.
+-->
+
+<!-- Put site-specific property overrides in this file. -->
+
+<configuration>
+    <!-- 把多个 NameNode 的地址组装成一个集群 叫hdpcluster；这个地址在 hdfs中配置 -->
+    <property>
+    	<name>fs.defaultFS</name>
+        <value>hdfs://hdpcluster</value>
+    </property>
+    <!-- 指定 hadoop 运行时产生文件的存储目录 -->
+    <property>
+        <name>hadoop.tmp.dir</name>
+        <value>/opt/module/hdp3/data</value>
+    </property>
+    <!-- 指定 zkfc 要连接的 zkServer 地址 -->
+    <property>
+        <name>ha.zookeeper.quorum</name>
+        <value>hdp180:2181,hdp181:2181,hdp182:2181</value>
+    </property>
+    <!-- NN 连接 JN 重试次数，默认是 10 次 -->
+    <property>
+        <name>ipc.client.connect.max.retries</name>
+        <value>20</value>
+    </property>
+    <!-- 重试时间间隔，默认 1s -->
+    <property>
+        <name>ipc.client.connect.retry.interval</name>
+        <value>5000</value>
+    </property>
+</configuration>

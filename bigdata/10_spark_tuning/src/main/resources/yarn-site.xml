@@ -1,0 +1,242 @@
+<?xml version="1.0"?>
+<!--
+  Licensed under the Apache License, Version 2.0 (the "License");
+  you may not use this file except in compliance with the License.
+  You may obtain a copy of the License at
+
+    http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License. See accompanying LICENSE file.
+-->
+
+<configuration>
+    <!-- 数据读取 -->
+    <property>
+        <name>yarn.nodemanager.aux-services</name>
+        <value>mapreduce_shuffle</value>
+    </property>
+    <!-- 启用 resourcemanager ha -->
+    <property>
+        <name>yarn.resourcemanager.ha.enabled</name>
+        <value>true</value>
+    </property>
+    <!-- 声明3台 resourcemanager 的地址 -->
+    <property>
+        <name>yarn.resourcemanager.cluster-id</name>
+        <value>cluster-yarn1</value>
+    </property>
+    <!--指定 resourcemanager 的逻辑列表-->
+    <property>
+        <name>yarn.resourcemanager.ha.rm-ids</name>
+        <value>rm1,rm2,rm3</value>
+    </property>
+<!-- ========== rm1 的配置 ========== -->
+    <!-- 指定 rm1 的主机名 -->
+    <property>
+        <name>yarn.resourcemanager.hostname.rm1</name>
+        <value>hdp180</value>
+    </property>
+    <!-- 指定 rm1 的 web 端地址 -->
+    <property>
+        <name>yarn.resourcemanager.webapp.address.rm1</name>
+        <value>hdp180:8088</value>
+    </property>
+    <!-- 指定 rm1 的内部通信地址 -->
+    <property>
+        <name>yarn.resourcemanager.address.rm1</name>
+        <value>hdp180:8032</value>
+    </property>
+    <!-- 指定 AM 向 rm1 申请资源的地址 -->
+    <property>
+        <name>yarn.resourcemanager.scheduler.address.rm1</name>
+    	<value>hdp180:8030</value>
+    </property>
+    <!-- 指定供 NM 连接的地址 -->
+    <property>
+        <name>yarn.resourcemanager.resource-tracker.address.rm1</name>
+        <value>hdp180:8031</value>
+    </property>
+<!-- ========== rm2 的配置 ========== -->
+    <!-- 指定 rm2 的主机名 -->
+    <property>
+        <name>yarn.resourcemanager.hostname.rm2</name>
+        <value>hdp181</value>
+    </property>
+    <property>
+        <name>yarn.resourcemanager.webapp.address.rm2</name>
+        <value>hdp181:8088</value>
+     </property>
+    <property>
+        <name>yarn.resourcemanager.address.rm2</name>
+        <value>hdp181:8032</value>
+    </property>
+    <property>
+        <name>yarn.resourcemanager.scheduler.address.rm2</name>
+        <value>hdp181:8030</value>
+    </property>
+    <property>
+        <name>yarn.resourcemanager.resource-tracker.address.rm2</name>
+        <value>hdp181:8031</value>
+    </property>
+<!-- ========== rm3 的配置 ========== -->
+	<!-- 指定 rm1 的主机名 -->
+    <property>
+        <name>yarn.resourcemanager.hostname.rm3</name>
+        <value>hdp182</value>
+    </property>
+	<!-- 指定 rm1 的 web 端地址 -->
+    <property>
+        <name>yarn.resourcemanager.webapp.address.rm3</name>
+        <value>hdp182:8088</value>
+    </property>
+    <!-- 指定 rm1 的内部通信地址 -->
+    <property>
+    	<name>yarn.resourcemanager.address.rm3</name>
+        <value>hdp182:8032</value>
+    </property>
+    <!-- 指定 AM 向 rm1 申请资源的地址 -->
+    <property>
+        <name>yarn.resourcemanager.scheduler.address.rm3</name>
+        <value>hdp182:8030</value>
+    </property>
+    <!-- 指定供 NM 连接的地址 -->
+    <property>
+        <name>yarn.resourcemanager.resource-tracker.address.rm3</name>
+        <value>hdp182:8031</value>
+    </property>
+	<!-- 指定 zookeeper 集群的地址 -->
+    <property>
+        <name>yarn.resourcemanager.zk-address</name>
+        <value>hdp180:2181,hdp181:2181,hdp182:2181</value>
+    </property>
+    <!-- 启用自动恢复 -->
+    <property>
+        <name>yarn.resourcemanager.recovery.enabled</name>
+        <value>true</value>
+    </property>
+    <!-- 指定 resourcemanager 的状态信息存储在 zookeeper 集群 -->
+    <property>
+        <name>yarn.resourcemanager.store.class</name>
+        <value>org.apache.hadoop.yarn.server.resourcemanager.recovery.ZKRMStateStore</value>
+	</property>
+    <!-- 环境变量的继承 -->
+    <property>
+        <name>yarn.nodemanager.env-whitelist</name>
+        <value>JAVA_HOME,HADOOP_COMMON_HOME,HADOOP_HDFS_HOME,HADOOP_CONF_DIR,CLAS
+        SPATH_PREPEND_DISTCACHE,HADOOP_YARN_HOME,HADOOP_MAPRED_HOME</value>
+    </property>
+    <!-- 		 历史服务器							 -->
+      <!-- 开启日志聚集功能 -->
+    <property>
+        <name>yarn.log-aggregation-enable</name>
+        <value>true</value>
+    </property>
+    <!-- 设置日志聚集服务器地址 -->
+    <property>  
+        <name>yarn.log.server.url</name>  
+        <value>http://hdp180:19888/jobhistory/logs</value>
+    </property>
+    <!-- 设置日志保留时间为7天 -->
+    <property>
+        <name>yarn.log-aggregation.retain-seconds</name>
+        <value>604800</value>
+   </property>
+	<!--spark -->
+   <property>
+     <name>yarn.nodemanager.pmem-check-enabled</name>
+     <value>true</value>
+   </property>
+ <!-- 是否开启 虚拟内存 检查限制container，默认打开（此处关闭，虚拟内存检测会增大内存消耗） -->
+   <property>
+      <name>yarn.nodemanager.vmem-check-enabled</name>
+      <value>false</value>
+   </property>
+
+    <!-- RM相关  -->
+    <!-- 配置调度器，apach 默认是CapacityScheduler（中小型公司） ，cdh默认是 公平调度器 （大公司） -->
+    <property>
+        <name>yarn.resourcemanager.scheduler.class</name>
+        <value>org.apache.hadoop.yarn.server.resourcemanager.scheduler.capacity.CapacityScheduler</value>
+    </property>
+    <!-- RM 处理调度器请求的数量 默认50 （当前服务器总线程8*3=24个，不能高于服务器总线程，除去其他程序占用设置6）-->
+    <property>
+        <name>yarn.resourcemanager.delegation-token-renewer.thread-count</name>
+        <value>20</value>
+    </property>
+
+    <!-- NM 相关 根据服务器配置 不同可单独配  -->
+    <!-- 是否yarn 自己检测硬件配置，默认false -->
+    <property>
+        <name>yarn.nodemanager.resource.detect-hardware-capabilities</name>
+        <value>false</value>
+    </property>
+    <!-- 是否将虚拟核数作为cpu核数，默认false（如果cpu数混搭的可以开启） -->
+    <property>
+        <name>yarn.nodemanager.resource.count-logical-processors-as-cores</name>
+        <value>false</value>
+    </property>
+    <!--虚拟核数和物理核数的乘数；如4核8线程，就是2，默认是1.0 -->
+    <property>
+        <name>yarn.nodemanager.resource.pcores-vcores-multiplier</name>
+        <value>1.0</value>
+    </property>
+
+    <!--为系统预留多少内存，和上面的参数配一个即可 -->
+    <!-- <property>
+        <name>yarn.nodemanager.resource.system-reserved-memory-mb</name>
+        <value>-1</value>
+      </property>   -->
+    <!-- NM使用cpu 核数，默认-1；当前服务器是2 -->
+    <property>
+        <name>yarn.nodemanager.resource.cpu-vcores</name>
+        <value>-1</value>
+    </property>
+    <!-- 是否开启 物理内存 检查限制container，默认打开 -->
+    <property>
+        <name>yarn.nodemanager.pmem-check-enabled</name>
+        <value>false</value>
+    </property>
+    <!-- 是否开启 虚拟内存 检查限制container，默认打开（此处关闭，虚拟内存检测会增大内存消耗） -->
+    <property>
+        <name>yarn.nodemanager.vmem-check-enabled</name>
+        <value>false</value>
+    </property>
+    <!-- 虚拟内存 物理内存 比例，默认2.1 -->
+    <property>
+        <name>yarn.nodemanager.vmem-pmem-ratio</name>
+        <value>2.1</value>
+    </property>
+
+    <!-- container 容器相关   -->
+    <!-- yarn 容器 允许分配的 最大 最小内存 ，默认1g -->
+    <property>
+        <name>yarn.scheduler.minimum-allocation-mb</name>
+        <value>1024</value>
+    </property>
+    <!--  yarn 容器 允许分配的 最大 最小内存  ，默认8g；（当前服务器一共4G，写2g） -->
+    <property>
+        <name>yarn.scheduler.maximum-allocation-mb</name>
+        <value>8192</value>
+    </property>
+    <!-- yarn 容器允许管理的物理内存 大小，默认-1 表示会预留20%给服务器（当前服务器只分配14g） -->
+    <property>
+        <name>yarn.nodemanager.resource.memory-mb</name>
+        <value>8192</value>
+    </property>
+    <!-- 容器最小cpu核数，默认1个  -->
+    <property>
+        <name>yarn.scheduler.minimum-allocation-vcores</name>
+        <value>1</value>
+    </property>
+    <!-- 容器最大 cpu 核数，默认4个（服务器一共4个，写2个）  -->
+    <property>
+        <name>yarn.scheduler.maximum-allocation-vcores</name>
+        <value>4</value>
+    </property>
+</configuration>
+
+
