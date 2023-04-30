@@ -5,7 +5,7 @@ import org.apache.spark.SparkConf
 import org.apache.spark.sql.{SaveMode, SparkSession}
 
 /**
- * 测试001
+ * 测试
  */
 object PartitionDemo {
   def main( args: Array[String] ): Unit = {
