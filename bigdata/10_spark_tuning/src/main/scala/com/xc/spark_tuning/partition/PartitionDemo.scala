@@ -3,7 +3,7 @@ package com.xc.spark_tuning.partition
 import com.xc.spark_tuning.utils.InitUtil
 import org.apache.spark.SparkConf
 import org.apache.spark.sql.{SaveMode, SparkSession}
-
+/*001*/
 object PartitionDemo {
   def main( args: Array[String] ): Unit = {
     val sparkConf = new SparkConf().setAppName("PartitionDemo")
